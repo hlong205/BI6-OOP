@@ -1,10 +1,4 @@
-/**
- * Created by Sony on 11/13/2016.
- */
-
 import java.util.*;
-
-
 
 class Graph {
     private final Map<String, Vertex> graph;
