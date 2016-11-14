@@ -7,7 +7,7 @@ class Graph {
     public static class Edge {
         public final  String v1, v2;
         public final int dist;
-        public Edge(String vertex1, String vertex2, int distance) { //Eg: Graph.Edge("a", "b", 7) doan tu a den b = 7
+        public Edge(String vertex1, String vertex2, int distance) { 
             this.v1 = vertex1;
             this.v2 = vertex2;
             this.dist = distance;
