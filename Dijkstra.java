@@ -5,6 +5,7 @@
 import java.util.*;
 
 
+
 class Graph {
     private final Map<String, Vertex> graph;
 
@@ -12,7 +13,7 @@ class Graph {
     public static class Edge {
         public final  String v1, v2;
         public final int dist;
-        public Edge(String vertex1, String vertex2, int distance) 
+        public Edge(String vertex1, String vertex2, int distance) { //Eg: Graph.Edge("a", "b", 7) doan tu a den b = 7
             this.v1 = vertex1;
             this.v2 = vertex2;
             this.dist = distance;
@@ -20,11 +21,11 @@ class Graph {
     }
 
     /** One vertex of the graph, complete with mappings to neighbouring vertices */
-    public static class Vertex implements Comparable<Vertex>{ 
+    public static class Vertex implements Comparable<Vertex>{
         public final String name;
-        public int dist = Integer.MAX_VALUE; 
+        public int dist = Integer.MAX_VALUE; // MAX_VALUE assumed to be infinity
         public Vertex previous = null;
-        public final Map<Vertex, Integer> neighbours = new HashMap<>(); 
+        public final Map<Vertex, Integer> neighbours = new HashMap<>();
 
         public Vertex(String name)
         {
@@ -76,8 +77,9 @@ class Graph {
 
         //another pass to set neighbouring vertices
         for (Edge e : edges) {
-            graph.get(e.v1).neighbours.put(graph.get(e.v2), e.dist); 
+            graph.get(e.v1).neighbours.put(graph.get(e.v2), e.dist);
 
+            //graph.get(e.v2).neighbours.put(graph.get(e.v1), e.dist); // also do this for an undirected graph
         }
     }
 
@@ -88,10 +90,10 @@ class Graph {
             return;
         }
         final Vertex source = graph.get(startName);
-        NavigableSet<Vertex> q = new TreeSet<>(); 
+        NavigableSet<Vertex> q = new TreeSet<>();
 
         // set-up vertices
-        for (Vertex v : graph.values()) { 
+        for (Vertex v : graph.values()) {
             v.previous = v == source ? source : null;
             v.dist = v == source ? 0 : Integer.MAX_VALUE;
             q.add(v);
@@ -100,15 +102,15 @@ class Graph {
         dijkstra(q);
     }
 
-    
+    /** Implementation of dijkstra's algorithm using a binary heap. */
     private void dijkstra(final NavigableSet<Vertex> q) {
         Vertex u, v;
-        while (!q.isEmpty()) { 
+        while (!q.isEmpty()) {
 
             u = q.pollFirst(); // vertex with shortest distance (first iteration will return source)
 
-            if (u.dist == Integer.MAX_VALUE) break; 
 
+            if (u.dist == Integer.MAX_VALUE) break;
             //look at distances to each neighbour
             for (Map.Entry<Vertex, Integer> a : u.neighbours.entrySet()) {
                 v = a.getKey(); //the neighbour in this iteration
@@ -154,8 +156,9 @@ public class Dijkstra {
     private static final String END = "e";
 
     public static void main(String[] args) {
-			Graph g = new Graph(GRAPH);
+        Graph g = new Graph(GRAPH);
         g.dijkstra(START);
         g.printPath(END);
+
     }
 }
