@@ -1,5 +1,7 @@
 import java.util.*;
 
+
+
 class Graph {
     private final Map<String, Vertex> graph;
 
@@ -7,7 +9,7 @@ class Graph {
     public static class Edge {
         public final  String v1, v2;
         public final int dist;
-        public Edge(String vertex1, String vertex2, int distance) { 
+        public Edge(String vertex1, String vertex2, int distance) {
             this.v1 = vertex1;
             this.v2 = vertex2;
             this.dist = distance;
@@ -51,11 +53,7 @@ class Graph {
             return Integer.compare(dist, other.dist);
         }
 
-        @Override public String toString()
-        {
-            return "(" + name + ", " + dist + ")";
 
-        }
     }
 
     /** Builds a graph from a set of edges */
@@ -131,6 +129,15 @@ class Graph {
         System.out.println();
     }
 
+    public void printAllPaths() {
+        for (Vertex v : graph.values()) {
+            v.printPath();
+            System.out.println();
+        }
+    }
+
+
+
 }
 
 
@@ -153,6 +160,6 @@ public class Dijkstra {
         Graph g = new Graph(GRAPH);
         g.dijkstra(START);
         g.printPath(END);
-
+        g.printAllPaths();
     }
 }
